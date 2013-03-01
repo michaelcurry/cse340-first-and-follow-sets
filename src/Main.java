@@ -40,6 +40,7 @@ public class Main {
 
 		// Init Grammar Array
 		Grammar grammar = new Grammar(tokens);
+		grammar.print();
 	}
 
 	// Delete output file

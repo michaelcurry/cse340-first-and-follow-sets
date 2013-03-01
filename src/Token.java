@@ -62,6 +62,7 @@ public class Token {
 		}
 	}
 
+	// Print Oneline View
 	public void oneline() {
 		System.out.printf("%1$-15s\t%2$-1s\n",token,message);
 	}
