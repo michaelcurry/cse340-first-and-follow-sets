@@ -12,11 +12,15 @@ import java.util.regex.Matcher;
 public class Grammar {
 
 	// Init Vars
+	private static final Pattern BASIC_GRAMMAR = Pattern.compile("^[[(NONTERMINAL|TERMINAL)][(ASSIGNMENT)][(NONTERMINAL)(TERMINAL)(BNF)(EBNF)]*]*$");
+	private static final Pattern VALID_GRAMMAR = Pattern.compile("^[(NONTERMINAL)(ASSIGNMENT)[(NONTERMINAL)(TERMINAL)(BNF)(EBNF)]*]*$");
 	public String type;
 	public Statment[] statments = new Statment[100];
 
 	// Gramar constructor
 	public Grammar(Token[] tokens){
+		// Validata Grammar before Parce
+		validate(tokens);
 		// Indexs set
 		int statmentIndex = -1;
 		int tokenIndex = 0;
@@ -57,6 +61,21 @@ public class Grammar {
 			// Increment to next Token Index
 			tokenIndex++;
 		} while (tokenIndex < tokens.length);
+	}
+
+	// Sets error and erroemessage if grammar is not valid
+	protected void validate(Token[] tokens) {
+		String tokenString = "";
+		for ( Token token : tokens ) {
+			tokenString += token.type;
+		}
+		if (!BASIC_GRAMMAR.matcher(tokenString).matches()){
+			System.out.println("ERROR CODE 0: Input not according to format");
+		}
+		if (!VALID_GRAMMAR.matcher(tokenString).matches()){
+			System.out.println("ERROR CODE 2: terminal symbol appearing on the lefthand side of a rule");
+		}
+		System.out.println(tokenString);
 	}
 
 	// Print Grammar to console
