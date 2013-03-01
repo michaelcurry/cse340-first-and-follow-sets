@@ -8,6 +8,8 @@
 import java.io.*;
 
 public class Main {
+	// Init Vars
+	private static Boolean DEBUG = true;
 
 	public static void main(String[] args) {
 		// Define File Vars
@@ -22,6 +24,13 @@ public class Main {
 
 		// Delete output file if exists
 		deleteOutput(fileName);
+		deleteOutput(fileName+".DEBUG");
+
+		// DEBUG Section
+		if (DEBUG) {
+			System.out.println("== TOKENS ==");
+			appendToOutput(fileName+".DEBUG","== TOKENS ==");
+		}
 
 		//Create Tokens Array (For Each Token in Raw Token Array DO:)
 		int count = 0;
@@ -30,21 +39,41 @@ public class Main {
 			Token token = new Token(arg);
 			// Allocate Token Onject to token array
 			tokens[count] = token;
-			// Comsole Output
-				//token.oneline();
-			// File Output
-				//appendToOutput(fileName,token.token+" "+token.message+"\n");
+			// DEBUG Section
+			if (DEBUG) {
+				// Console Output
+				token.oneline();
+				// File Output
+				appendToOutput(fileName+".DEBUG",token.token+" "+token.message+"\n");
+			}
 			// Increment Count
 			count++;
+		}
+
+		// DEBUG Section
+		if (DEBUG) {
+			System.out.println("== GRAMMAR ==");
+			appendToOutput(fileName+".DEBUG","== GRAMMAR ==");
 		}
 
 		// Init Grammar Array
 		Grammar grammar = new Grammar(tokens);
 		if (grammar.type == "ERROR") {
 			System.out.println(grammar.message);
+			appendToOutput(fileName,grammar.message);
+			if (DEBUG) {
+				appendToOutput(fileName+".DEBUG",grammar.message);
+			}
+			return;
 		} else {
 			grammar.print();
+			// DEBUG Section
+			if (DEBUG) {
+				appendToOutput(fileName+".DEBUG",grammar.toString());
+			}
 		}
+
+
 	}
 
 	// Delete output file
