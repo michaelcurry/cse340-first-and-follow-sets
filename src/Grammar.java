@@ -17,13 +17,14 @@ public class Grammar {
 	public String type;
 	public String message;
 	public Statment[] statments = new Statment[100];
+	public Token[] nonTerminals = new Token[100];
 
 	// Gramar constructor
 	public Grammar(Token[] tokens){
 		// Validata Grammar before Parce
 		validate(tokens);
 		if (type == "ERROR") {
-
+			// Do Not Parce Grammar
 		}else {
 			// Indexs set
 			int statmentIndex = -1;
@@ -65,6 +66,15 @@ public class Grammar {
 				// Increment to next Token Index
 				tokenIndex++;
 			} while (tokenIndex < tokens.length);
+		}
+
+		// NonTerminal Array Creation
+		int nonTerminalIndex = 0;
+		for (Statment statment : statments) {
+			if (statment != null) {
+				nonTerminals[nonTerminalIndex] = statment.nonTerminal;
+				nonTerminalIndex++;
+			}
 		}
 	}
 

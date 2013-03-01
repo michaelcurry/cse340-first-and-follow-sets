@@ -1,4 +1,10 @@
-== TOKENS ==definition nonterminal
+== INPUT ==
+definition - type list EQUAL value SEMICOLON
+type - INT | REAL
+list - ID COMMA ID
+value - NUM | REALNUM | STRING
+== TOKENS ==
+definition nonterminal
 - assignment
 type nonterminal
 list nonterminal
@@ -22,7 +28,8 @@ NUM terminal
 REALNUM terminal
 | pipe
 STRING terminal
-== GRAMMAR ==definition - type list EQUAL value SEMICOLON 
+== GRAMMAR ==
+definition - type list EQUAL value SEMICOLON 
 type - INT 
 type - REAL 
 list - ID COMMA ID 

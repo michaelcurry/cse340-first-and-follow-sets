@@ -28,8 +28,14 @@ public class Main {
 
 		// DEBUG Section
 		if (DEBUG) {
+			// INPUT
+			System.out.println("== INPUT ==");
+			appendToOutput(fileName+".DEBUG","== INPUT ==\n");
+			System.out.println(getInput(file));
+			appendToOutput(fileName+".DEBUG",getInput(file)+"\n");
+			// TOKEN
 			System.out.println("== TOKENS ==");
-			appendToOutput(fileName+".DEBUG","== TOKENS ==");
+			appendToOutput(fileName+".DEBUG","== TOKENS ==\n");
 		}
 
 		//Create Tokens Array (For Each Token in Raw Token Array DO:)
@@ -53,7 +59,7 @@ public class Main {
 		// DEBUG Section
 		if (DEBUG) {
 			System.out.println("== GRAMMAR ==");
-			appendToOutput(fileName+".DEBUG","== GRAMMAR ==");
+			appendToOutput(fileName+".DEBUG","== GRAMMAR ==\n");
 		}
 
 		// Init Grammar Array
