@@ -1,31 +1,13 @@
 == TOKENS ==definition nonterminal
 - assignment
 type nonterminal
-list nonterminal
-EQUAL terminal
-value nonterminal
 SEMICOLON terminal
 type nonterminal
 - assignment
 INT terminal
-| bnf
+| pipe
 REAL terminal
-list nonterminal
-- assignment
-ID terminal
-COMMA terminal
-ID terminal
-value nonterminal
-- assignment
-NUM terminal
-| bnf
-REALNUM terminal
-| bnf
-STRING terminal
-== GRAMMAR ==definition - type list EQUAL value SEMICOLON 
+{ ERROR CODE 0: Input not according to format
+== GRAMMAR ==definition - type SEMICOLON 
 type - INT 
-type - REAL 
-list - ID COMMA ID 
-value - NUM 
-value - REALNUM 
-value - STRING 
+type - REAL { 

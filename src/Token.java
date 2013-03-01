@@ -14,8 +14,7 @@ public class Token {
 	// Init Vars | Declare Language Alphabet & Token Patterns
 	private static final Pattern VALID_TOKEN = Pattern.compile("^[a-zA-Z0-9\\{\\}\\[\\]\\-\\|]*$");
 	private static final Pattern ASSIGNMENT_TOKEN = Pattern.compile("^\\-$");
-	private static final Pattern BNF_TOKEN = Pattern.compile("^\\|$");
-	private static final Pattern EBNF_TOKEN = Pattern.compile("^(\\[[a-zA-Z][a-zA-Z0-9]*\\]|\\{[a-zA-Z][a-zA-Z0-9]*\\})$");
+	private static final Pattern PIPE_TOKEN = Pattern.compile("^\\|$");
 	private static final Pattern TERMINAL_TOKEN = Pattern.compile("^(VAR|BEGIN|END|ASSIGN|IF|WHILE|DO|THEN|PRINT|INT|REAL|STRING|PLUS|MINUS|UNDERSCORE|DIV|MULT|EQUAL|COLON|COMMA|SEMICOLON|LBRAC|RBRAC|LPAREN|RPAREN|NOTEQUAL|GREATER|LESS|LTEQ|GTEQ|DOT|ID|NUM|REALNUM)$");
 	private static final Pattern NONTERMINAL_TOKEN = Pattern.compile("^[a-zA-Z][a-zA-Z0-9]*$");
 	public String token;
@@ -44,12 +43,9 @@ public class Token {
 		if (ASSIGNMENT_TOKEN.matcher(token).matches()){
 			type = "ASSIGNMENT";
 			message = "assignment";
-		}else if (BNF_TOKEN.matcher(token).matches()){
-			type = "BNF";
-			message = "bnf";
-		}else if (EBNF_TOKEN.matcher(token).matches()){
-			type = "EBNF";
-			message = "ebnf";
+		}else if (PIPE_TOKEN.matcher(token).matches()){
+			type = "PIPE";
+			message = "pipe";
 		}else if (TERMINAL_TOKEN.matcher(token).matches()){
 			type = "TERMINAL";
 			message = "terminal";

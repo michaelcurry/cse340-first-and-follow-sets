@@ -12,8 +12,8 @@ import java.util.regex.Matcher;
 public class Grammar {
 
 	// Init Vars
-	private static final Pattern BASIC_GRAMMAR = Pattern.compile("^((NONTERMINALASSIGNMENT|TERMINALASSIGNMENT)[NONTERMINAL|TERMINAL|BNF|EBNF]+)+$");
-	private static final Pattern VALID_GRAMMAR = Pattern.compile("^(NONTERMINALASSIGNMENT[NONTERMINAL|TERMINAL|BNF|EBNF]+)+$");
+	private static final Pattern BASIC_GRAMMAR = Pattern.compile("^((NONTERMINALASSIGNMENT|TERMINALASSIGNMENT)[NONTERMINAL|TERMINAL|PIPE]+)+$");
+	private static final Pattern VALID_GRAMMAR = Pattern.compile("^(NONTERMINALASSIGNMENT[NONTERMINAL|TERMINAL|PIPE]+)+$");
 	public String type;
 	public String message;
 	public Statment[] statments = new Statment[100];
@@ -44,8 +44,8 @@ public class Grammar {
 					// Push past ASSIGNMENT
 					tokenIndex++;
 				}
-				// ElseIf token is BNF '|'
-				else if (tokens[tokenIndex].type.equals("BNF")) {
+				// ElseIf token is PIPE '|'
+				else if (tokens[tokenIndex].type.equals("PIPE")) {
 					// Increment to next Segment Index
 					statmentIndex++;
 					// Init Statment
@@ -74,6 +74,7 @@ public class Grammar {
 		for ( Token token : tokens ) {
 			tokenString += token.type;
 		}
+		System.out.println(tokenString);
 		if (!BASIC_GRAMMAR.matcher(tokenString).matches()){
 			type = "ERROR";
 			message = "ERROR CODE 0: Input not according to format";
