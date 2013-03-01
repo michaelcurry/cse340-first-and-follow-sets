@@ -12,11 +12,48 @@ import java.util.regex.Matcher;
 public class Grammar {
 
 	// Init Vars
-	public String type = "";
+	public String type;
 	public Statment[] statments = new Statment[100];
 
 	// Gramar constructor
 	public Grammar(Token[] tokens){
-		int index = 0;
+		// Indexs set
+		int statmentIndex = 0;
+		int tokenIndex = 0;
+		int definitionIndex = 0;
+		// Create Statments from tokens array
+		do {
+			// If Nonterminal before ASSIGNMENT
+			if (tokens[tokenIndex].type.equals("NONTERMINAL") && tokens[tokenIndex+1].type.equals("ASSIGNMENT")) {
+				// Init Statment
+				statments[statmentIndex] = new Statment();
+				// Assign NONTERMINAL
+				statments[statmentIndex].nonTerminal = tokens[tokenIndex];
+				// Reset Definition Index on creation of new statment
+				definitionIndex = 0;
+				// Push past ASSIGNMENT
+				tokenIndex++;
+			}
+			// ElseIf token is BNF '|'
+			else if (tokens[tokenIndex].type.equals("BNF")) {
+				// Increment to next Segment Index
+				statmentIndex++;
+				// Init Statment
+				statments[statmentIndex] = new Statment();
+				// Assign NONTERMINAL
+				statments[statmentIndex].nonTerminal = statments[statmentIndex-1].nonTerminal;
+				// Reset Definition Index on creation of new statment
+				definitionIndex = 0;
+			}
+			// Else is definition
+			else {
+				// Push Token to Statment Definition
+				statments[statmentIndex].definitions[definitionIndex] = tokens[tokenIndex];
+				// Increment to next Definition Index
+				definitionIndex++;
+			}
+			// Increment to next Token Index
+			tokenIndex++;
+		} while (tokenIndex < tokens.length);
 	}
 }
