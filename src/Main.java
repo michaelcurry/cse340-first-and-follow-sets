@@ -40,7 +40,11 @@ public class Main {
 
 		// Init Grammar Array
 		Grammar grammar = new Grammar(tokens);
-		grammar.print();
+		if (grammar.type == "ERROR") {
+			System.out.println(grammar.message);
+		} else {
+			grammar.print();
+		}
 	}
 
 	// Delete output file

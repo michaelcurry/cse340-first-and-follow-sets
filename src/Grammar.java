@@ -12,55 +12,60 @@ import java.util.regex.Matcher;
 public class Grammar {
 
 	// Init Vars
-	private static final Pattern BASIC_GRAMMAR = Pattern.compile("^[[(NONTERMINAL|TERMINAL)][(ASSIGNMENT)][(NONTERMINAL)(TERMINAL)(BNF)(EBNF)]*]*$");
-	private static final Pattern VALID_GRAMMAR = Pattern.compile("^[(NONTERMINAL)(ASSIGNMENT)[(NONTERMINAL)(TERMINAL)(BNF)(EBNF)]*]*$");
+	private static final Pattern BASIC_GRAMMAR = Pattern.compile("^((NONTERMINALASSIGNMENT|TERMINALASSIGNMENT)[NONTERMINAL|TERMINAL|BNF|EBNF]+)+$");
+	private static final Pattern VALID_GRAMMAR = Pattern.compile("^(NONTERMINALASSIGNMENT[NONTERMINAL|TERMINAL|BNF|EBNF]+)+$");
 	public String type;
+	public String message;
 	public Statment[] statments = new Statment[100];
 
 	// Gramar constructor
 	public Grammar(Token[] tokens){
 		// Validata Grammar before Parce
 		validate(tokens);
-		// Indexs set
-		int statmentIndex = -1;
-		int tokenIndex = 0;
-		int definitionIndex = 0;
-		// Create Statments from tokens array
-		do {
-			// If Nonterminal before ASSIGNMENT
-			if (tokens[tokenIndex].type.equals("NONTERMINAL") && tokens[tokenIndex+1].type.equals("ASSIGNMENT")) {
-				// Increment to next Segment Index
-				statmentIndex++;
-				// Init Statment
-				statments[statmentIndex] = new Statment();
-				// Assign NONTERMINAL
-				statments[statmentIndex].nonTerminal = tokens[tokenIndex];
-				// Reset Definition Index on creation of new statment
-				definitionIndex = 0;
-				// Push past ASSIGNMENT
+		if (type == "ERROR") {
+
+		}else {
+			// Indexs set
+			int statmentIndex = -1;
+			int tokenIndex = 0;
+			int definitionIndex = 0;
+			// Create Statments from tokens array
+			do {
+				// If Nonterminal before ASSIGNMENT
+				if (tokens[tokenIndex].type.equals("NONTERMINAL") && tokens[tokenIndex+1].type.equals("ASSIGNMENT")) {
+					// Increment to next Segment Index
+					statmentIndex++;
+					// Init Statment
+					statments[statmentIndex] = new Statment();
+					// Assign NONTERMINAL
+					statments[statmentIndex].nonTerminal = tokens[tokenIndex];
+					// Reset Definition Index on creation of new statment
+					definitionIndex = 0;
+					// Push past ASSIGNMENT
+					tokenIndex++;
+				}
+				// ElseIf token is BNF '|'
+				else if (tokens[tokenIndex].type.equals("BNF")) {
+					// Increment to next Segment Index
+					statmentIndex++;
+					// Init Statment
+					statments[statmentIndex] = new Statment();
+					// Assign NONTERMINAL
+					statments[statmentIndex].nonTerminal = statments[statmentIndex-1].nonTerminal;
+					// Reset Definition Index on creation of new statment
+					definitionIndex = 0;
+				}
+				// Else is definition
+				else {
+					// Push Token to Statment Definition
+					statments[statmentIndex].definitions[definitionIndex] = tokens[tokenIndex];
+					// Increment to next Definition Index
+					definitionIndex++;
+				}
+				// Increment to next Token Index
 				tokenIndex++;
-			}
-			// ElseIf token is BNF '|'
-			else if (tokens[tokenIndex].type.equals("BNF")) {
-				// Increment to next Segment Index
-				statmentIndex++;
-				// Init Statment
-				statments[statmentIndex] = new Statment();
-				// Assign NONTERMINAL
-				statments[statmentIndex].nonTerminal = statments[statmentIndex-1].nonTerminal;
-				// Reset Definition Index on creation of new statment
-				definitionIndex = 0;
-			}
-			// Else is definition
-			else {
-				// Push Token to Statment Definition
-				statments[statmentIndex].definitions[definitionIndex] = tokens[tokenIndex];
-				// Increment to next Definition Index
-				definitionIndex++;
-			}
-			// Increment to next Token Index
-			tokenIndex++;
-		} while (tokenIndex < tokens.length);
+			} while (tokenIndex < tokens.length);
+		}
 	}
 
 	// Sets error and erroemessage if grammar is not valid
@@ -70,12 +75,15 @@ public class Grammar {
 			tokenString += token.type;
 		}
 		if (!BASIC_GRAMMAR.matcher(tokenString).matches()){
-			System.out.println("ERROR CODE 0: Input not according to format");
+			type = "ERROR";
+			message = "ERROR CODE 0: Input not according to format";
+			return;
 		}
 		if (!VALID_GRAMMAR.matcher(tokenString).matches()){
-			System.out.println("ERROR CODE 2: terminal symbol appearing on the lefthand side of a rule");
+			type = "ERROR";
+			message = "ERROR CODE 2: terminal symbol appearing on the lefthand side of a rule";
+			return;
 		}
-		System.out.println(tokenString);
 	}
 
 	// Print Grammar to console
