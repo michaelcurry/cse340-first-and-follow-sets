@@ -29,6 +29,12 @@ REALNUM terminal
 | pipe
 STRING terminal
 == GRAMMAR ==
+NonTerminals: 
+definition
+type
+list
+value
+Grammar: 
 definition - type list EQUAL value SEMICOLON 
 type - INT 
 type - REAL 

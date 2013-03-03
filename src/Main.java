@@ -72,7 +72,7 @@ public class Main {
 			}
 			return;
 		} else {
-			grammar.print();
+			System.out.print(grammar.toString());
 			// DEBUG Section
 			if (DEBUG) {
 				appendToOutput(fileName+".DEBUG",grammar.toString());

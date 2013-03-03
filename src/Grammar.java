@@ -30,6 +30,7 @@ public class Grammar {
 			int statmentIndex = -1;
 			int tokenIndex = 0;
 			int definitionIndex = 0;
+			int nonTerminalIndex = 0;
 			// Create Statments from tokens array
 			do {
 				// If Nonterminal before ASSIGNMENT
@@ -42,8 +43,12 @@ public class Grammar {
 					statments[statmentIndex].nonTerminal = tokens[tokenIndex];
 					// Reset Definition Index on creation of new statment
 					definitionIndex = 0;
+					// Add to nonTerminals Array
+					nonTerminals[nonTerminalIndex] = tokens[tokenIndex];
 					// Push past ASSIGNMENT
 					tokenIndex++;
+					// Increment to next nonTerminal Index
+					nonTerminalIndex++;
 				}
 				// ElseIf token is PIPE '|'
 				else if (tokens[tokenIndex].type.equals("PIPE")) {
@@ -67,15 +72,6 @@ public class Grammar {
 				tokenIndex++;
 			} while (tokenIndex < tokens.length);
 		}
-
-		// NonTerminal Array Creation
-		int nonTerminalIndex = 0;
-		for (Statment statment : statments) {
-			if (statment != null) {
-				nonTerminals[nonTerminalIndex] = statment.nonTerminal;
-				nonTerminalIndex++;
-			}
-		}
 	}
 
 	// Sets error and erroemessage if grammar is not valid
@@ -96,18 +92,16 @@ public class Grammar {
 		}
 	}
 
-	// Print Grammar to console
-	public void print() {
-		for (Statment statment : statments){
-			if (statment != null) {
-				statment.oneline();
-			}
-		}
-	}
-
 	// ToString
 	public String toString() {
 		String grammarString = "";
+		grammarString += "NonTerminals: \n";
+		for (Token nonTerminal : nonTerminals) {
+			if (nonTerminal != null) {
+				grammarString += nonTerminal.token + "\n";
+			}
+		}
+		grammarString += "Grammar: \n";
 		for (Statment statment : statments){
 			if (statment != null) {
 				grammarString += statment.toString() + "\n";
