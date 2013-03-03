@@ -92,6 +92,14 @@ public class Grammar {
 		}
 	}
 
+	protected void nonTerminalCheck() {
+		for (Statment statment : statments){
+			if (statment != null) {
+				// If Devinition nonterminals in in nonTerminals array
+			}
+		}
+	}
+
 	// ToString
 	public String toString() {
 		String grammarString = "";
