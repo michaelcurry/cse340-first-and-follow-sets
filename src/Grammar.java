@@ -71,6 +71,9 @@ public class Grammar {
 				// Increment to next Token Index
 				tokenIndex++;
 			} while (tokenIndex < tokens.length);
+
+			System.out.println("Check");
+			nonTerminalCheck();
 		}
 	}
 
@@ -96,8 +99,33 @@ public class Grammar {
 		for (Statment statment : statments){
 			if (statment != null) {
 				// If Devinition nonterminals in in nonTerminals array
+				for (Token definition : statment.definitions){
+					if (definition != null) {
+						// Is nonTerminal and is in array check
+						if (definition.type == "NONTERMINAL") {
+							if (inNonTerminalArray(definition) == -1) {
+								type = "ERROR";
+								message = "ERROR CODE 1: non-terminal symbol listed in a rule but does not have a description";
+								return;
+							}
+						}
+					}
+				}
 			}
 		}
+	}
+
+	protected int inNonTerminalArray(Token token) {
+		int index = 0;
+		for (Token nonTerminal : nonTerminals) {
+			if (nonTerminal != null) {
+				if (token.token.equals(nonTerminal.token)) {
+					return index;
+				}
+			}
+			index ++;
+		}
+		return -1;
 	}
 
 	// ToString
