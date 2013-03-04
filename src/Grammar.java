@@ -2,7 +2,7 @@
  *	File: Grammar.java
  *	Project: CSE340 - Project
  *	Author: Michael Curry
- *	Date: 2013.02.28
+ *	Date: 2013.03.03
  *	Description: Grammar Parse class for project 2
  *************************************************************************/
 
@@ -72,7 +72,6 @@ public class Grammar {
 				tokenIndex++;
 			} while (tokenIndex < tokens.length);
 
-			System.out.println("Check");
 			nonTerminalCheck();
 		}
 	}
@@ -126,6 +125,22 @@ public class Grammar {
 			index ++;
 		}
 		return -1;
+	}
+
+	public Token[] first(Token nonTerminal) {
+		int setIndex = 0;
+		Token[] set = new Token[100];
+		for (Statment statment : statments) {
+			if (statment != null) {
+				if (statment.nonTerminal.token.equals(nonTerminal.token))  {
+					if (statment.definitions[0].type == "TERMINAL") {
+						set[setIndex] = statment.definitions[0];
+						setIndex++;
+					}
+				}
+			}
+		}
+		return set;
 	}
 
 	// ToString

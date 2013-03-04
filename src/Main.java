@@ -1,7 +1,7 @@
 /*************************************************************************
  *	Project: CSE340 - Project 1
  *	Author: Michael Curry
- *	Date: 2013.02.03
+ *	Date: 2013.03.03
  *	Description: Main execution class for Project 1
  *************************************************************************/
 
@@ -79,6 +79,27 @@ public class Main {
 			}
 		}
 
+		// DEBUG Section
+		if (DEBUG) {
+			System.out.println("== FIRST ==");
+			appendToOutput(fileName+".DEBUG","== FIRST ==\n");
+		}
+		// First Sets
+		for (Token nonTerminal : grammar.nonTerminals) {
+			if (nonTerminal != null) {
+				// For each Nonterminal get First Sets
+				String firstString = "FIRST(" + nonTerminal.token + ") = {";
+				for (Token token : grammar.first(nonTerminal)) {
+					if (token != null) {
+						firstString += token.token + ", ";
+					}
+				}
+				firstString += "}";
+				firstString = firstString.replace(", }","}");
+				// Output First Set
+				System.out.println(firstString);
+			}
+		}
 
 	}
 
