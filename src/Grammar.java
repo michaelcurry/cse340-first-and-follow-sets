@@ -133,14 +133,15 @@ public class Grammar {
 		for (Statment statment : statments) {
 			if (statment != null) {
 				if (statment.nonTerminal.token.equals(nonTerminal.token))  {
-					if (statment.definitions[0].type == "TERMINAL") {
-
+					if (statment.definitions[0].type == "TERMINAL" && inTokenArray(set, statment.definitions[0]) == -1) {
 						set[setIndex] = statment.definitions[0];
 						setIndex++;
 					}else if (statment.definitions[0].type == "NONTERMINAL") {
 						for (Token token : first(statment.definitions[0])) {
-							set[setIndex] = token;
-							setIndex++;
+							if (token != null && inTokenArray(set, token) == -1) {
+								set[setIndex] = token;
+								setIndex++;
+							}
 						}
 					}
 				}
