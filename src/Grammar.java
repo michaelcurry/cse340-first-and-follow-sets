@@ -102,7 +102,7 @@ public class Grammar {
 					if (definition != null) {
 						// Is nonTerminal and is in array check
 						if (definition.type == "NONTERMINAL") {
-							if (inNonTerminalArray(definition) == -1) {
+							if (inTokenArray(nonTerminals,definition) == -1) {
 								type = "ERROR";
 								message = "ERROR CODE 1: non-terminal symbol listed in a rule but does not have a description";
 								return;
@@ -114,11 +114,11 @@ public class Grammar {
 		}
 	}
 
-	protected int inNonTerminalArray(Token token) {
+	protected int inTokenArray(Token[] tokenArray,Token matchToken) {
 		int index = 0;
-		for (Token nonTerminal : nonTerminals) {
-			if (nonTerminal != null) {
-				if (token.token.equals(nonTerminal.token)) {
+		for (Token arrayToken : tokenArray) {
+			if (arrayToken != null) {
+				if (matchToken.token.equals(arrayToken.token)) {
 					return index;
 				}
 			}
@@ -134,8 +134,14 @@ public class Grammar {
 			if (statment != null) {
 				if (statment.nonTerminal.token.equals(nonTerminal.token))  {
 					if (statment.definitions[0].type == "TERMINAL") {
+
 						set[setIndex] = statment.definitions[0];
 						setIndex++;
+					}else if (statment.definitions[0].type == "NONTERMINAL") {
+						for (Token token : first(statment.definitions[0])) {
+							set[setIndex] = token;
+							setIndex++;
+						}
 					}
 				}
 			}
