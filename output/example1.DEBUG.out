@@ -43,3 +43,7 @@ value - NUM
 value - REALNUM 
 value - STRING 
 == FIRST ==
+FIRST(definition) = {INT, REAL}
+FIRST(type) = {INT, REAL}
+FIRST(list) = {ID}
+FIRST(value) = {NUM, REALNUM, STRING}

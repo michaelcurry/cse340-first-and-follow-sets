@@ -128,15 +128,22 @@ public class Grammar {
 	}
 
 	public Token[] first(Token nonTerminal) {
+		// Set Increment
 		int setIndex = 0;
+		// Init Set Token Array
 		Token[] set = new Token[100];
+		// ForEach Statment in grammar
 		for (Statment statment : statments) {
 			if (statment != null) {
+				// If is passed nonTerminal
 				if (statment.nonTerminal.token.equals(nonTerminal.token))  {
+					// If is TERMINAL
 					if (statment.definitions[0].type == "TERMINAL" && inTokenArray(set, statment.definitions[0]) == -1) {
 						set[setIndex] = statment.definitions[0];
 						setIndex++;
-					}else if (statment.definitions[0].type == "NONTERMINAL") {
+					}
+					// If is NonTerminal
+					else if (statment.definitions[0].type == "NONTERMINAL") {
 						for (Token token : first(statment.definitions[0])) {
 							if (token != null && inTokenArray(set, token) == -1) {
 								set[setIndex] = token;

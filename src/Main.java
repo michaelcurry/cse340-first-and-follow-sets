@@ -96,8 +96,13 @@ public class Main {
 				}
 				firstString += "}";
 				firstString = firstString.replace(", }","}");
+				// DEBUG Section
+				if (DEBUG) {
+					appendToOutput(fileName+".DEBUG",firstString+"\n");
+				}
 				// Output First Set
 				System.out.println(firstString);
+				appendToOutput(fileName,firstString+"\n");
 			}
 		}
 
