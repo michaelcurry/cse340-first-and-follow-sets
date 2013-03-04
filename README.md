@@ -1,14 +1,14 @@
 ==================================================
-= Assignment: Project 2 - FIRST and FOLLOW sets  =
+= Assignment: Project 2 - FIRST and FOLLOW Sets  =
 = Author: Michael Curry                          =
 = Email: micurry@asu.edu                         =
-= Date: 2013.02.28                               =
+= Date: 2013.02.03                               =
 ==================================================
 
 ===============
 = Description =
 ===============
-This project implements lexical analyzer on a given language then finds the first and follow sets of a given grammar basted on the given language.
+This project implements lexical analyzer on a given language then finds the first and follow sets of a given BNF grammar basted on the given language.
 
 
 ========================================
