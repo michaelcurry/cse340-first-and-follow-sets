@@ -157,6 +157,45 @@ public class Grammar {
 		return set;
 	}
 
+	public Token[] follow(Token nonTerminal) {
+		// Set Increment
+		int setIndex = 0;
+		int definitionIndex = 0;
+		// Init Set Token Array
+		Token[] set = new Token[100];
+		// ForEach Statment in grammar
+		for (Statment statment : statments) {
+			if (statment != null) {
+				// ForEach Definition in Statment
+				for (Token definition : statment.definitions) {
+					if (definition != null) {
+						// If is passed nonTerminal
+						if (definition.token.equals(nonTerminal.token))  {
+							// If +1 is TERMINAL
+							if (statment.definitions[definitionIndex+1] != null && statment.definitions[definitionIndex+1].type == "TERMINAL" && inTokenArray(set, statment.definitions[definitionIndex+1]) == -1) {
+								set[setIndex] = statment.definitions[definitionIndex+1];
+								setIndex++;
+							}
+							// If is NonTerminal
+							/*else if (statment.definitions[0].type == "NONTERMINAL") {
+								for (Token token : first(statment.definitions[0])) {
+									if (token != null && inTokenArray(set, token) == -1) {
+										set[setIndex] = token;
+										setIndex++;
+									}
+								}
+							}
+							*/
+						}
+						definitionIndex++;
+					}
+				}
+				definitionIndex = 0;
+			}
+		}
+		return set;
+	}
+
 	// ToString
 	public String toString() {
 		String grammarString = "";

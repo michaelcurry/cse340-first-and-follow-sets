@@ -106,6 +106,33 @@ public class Main {
 			}
 		}
 
+		// DEBUG Section
+		if (DEBUG) {
+			System.out.println("== FOLLOW ==");
+			appendToOutput(fileName+".DEBUG","== FOLLOW ==\n");
+		}
+		// FOLLOW Sets
+		for (Token nonTerminal : grammar.nonTerminals) {
+			if (nonTerminal != null) {
+				// For each Nonterminal get First Sets
+				String followString = "FOLLOW(" + nonTerminal.token + ") = {";
+				for (Token token : grammar.follow(nonTerminal)) {
+					if (token != null) {
+						followString += token.token + ", ";
+					}
+				}
+				followString += "}";
+				followString = followString.replace(", }","}");
+				// DEBUG Section
+				if (DEBUG) {
+					appendToOutput(fileName+".DEBUG",followString+"\n");
+				}
+				// Output First Set
+				System.out.println(followString);
+				appendToOutput(fileName,followString+"\n");
+			}
+		}
+
 	}
 
 	// Delete output file
