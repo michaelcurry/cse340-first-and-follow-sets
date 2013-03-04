@@ -128,7 +128,7 @@ public class Grammar {
 	}
 
 	public Token[] first(Token nonTerminal) {
-		// Set Increment
+		// Set Increment Indexes
 		int setIndex = 0;
 		// Init Set Token Array
 		Token[] set = new Token[100];
@@ -158,9 +158,10 @@ public class Grammar {
 	}
 
 	public Token[] follow(Token nonTerminal) {
-		// Set Increment
+		// Set Increment Indexes
 		int setIndex = 0;
 		int definitionIndex = 0;
+		int nonTerminalIndex = 0;
 		// Init Set Token Array
 		Token[] set = new Token[100];
 		// ForEach Statment in grammar
@@ -186,11 +187,19 @@ public class Grammar {
 								}
 							}
 						}
+						// Increment definition Index
 						definitionIndex++;
 					}
 				}
+				// Reset definition Index
 				definitionIndex = 0;
 			}
+		}
+		// End of String
+		if (set[0] == null) {
+			set[0] = new Token("$");
+		}else if (statments[0].nonTerminal.token.equals(nonTerminal.token)) {
+			set[setIndex] = new Token("$");
 		}
 		return set;
 	}

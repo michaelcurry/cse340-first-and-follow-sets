@@ -48,7 +48,7 @@ FIRST(type) = {INT, REAL}
 FIRST(list) = {ID}
 FIRST(value) = {NUM, REALNUM, STRING}
 == FOLLOW ==
-FOLLOW(definition) = {}
+FOLLOW(definition) = {$}
 FOLLOW(type) = {ID}
 FOLLOW(list) = {EQUAL}
 FOLLOW(value) = {SEMICOLON}
