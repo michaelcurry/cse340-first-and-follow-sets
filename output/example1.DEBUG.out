@@ -49,6 +49,6 @@ FIRST(list) = {ID}
 FIRST(value) = {NUM, REALNUM, STRING}
 == FOLLOW ==
 FOLLOW(definition) = {}
-FOLLOW(type) = {}
+FOLLOW(type) = {ID}
 FOLLOW(list) = {EQUAL}
 FOLLOW(value) = {SEMICOLON}

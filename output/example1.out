@@ -3,6 +3,6 @@ FIRST(type) = {INT, REAL}
 FIRST(list) = {ID}
 FIRST(value) = {NUM, REALNUM, STRING}
 FOLLOW(definition) = {}
-FOLLOW(type) = {}
+FOLLOW(type) = {ID}
 FOLLOW(list) = {EQUAL}
 FOLLOW(value) = {SEMICOLON}

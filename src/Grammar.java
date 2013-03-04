@@ -177,15 +177,14 @@ public class Grammar {
 								setIndex++;
 							}
 							// If is NonTerminal
-							/*else if (statment.definitions[0].type == "NONTERMINAL") {
-								for (Token token : first(statment.definitions[0])) {
+							else if (statment.definitions[definitionIndex+1] != null && statment.definitions[definitionIndex+1].type == "NONTERMINAL") {
+								for (Token token : first(statment.definitions[definitionIndex+1])) {
 									if (token != null && inTokenArray(set, token) == -1) {
 										set[setIndex] = token;
 										setIndex++;
 									}
 								}
 							}
-							*/
 						}
 						definitionIndex++;
 					}
