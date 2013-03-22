@@ -1,7 +1,6 @@
 ==================================================
 = Assignment: Project 2 - FIRST and FOLLOW Sets  =
 = Author: Michael Curry                          =
-= Email: micurry@asu.edu                         =
 = Date: 2013.02.03                               =
 ==================================================
 
