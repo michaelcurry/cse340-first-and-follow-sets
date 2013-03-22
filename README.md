@@ -1,8 +1,6 @@
-==================================================
-= Assignment: Project 2 - FIRST and FOLLOW Sets  =
-= Author: Michael Curry                          =
-= Date: 2013.02.03                               =
-==================================================
+* Assignment: Project 2 - FIRST and FOLLOW Sets
+* Author: Michael Curry
+* Date: 2013.02.03
 
 ===============
 = Description =
